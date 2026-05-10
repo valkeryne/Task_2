@@ -15,7 +15,6 @@ import stellarburgers.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class OrderTest extends BaseTest {
@@ -118,9 +117,7 @@ public class OrderTest extends BaseTest {
     @DisplayName("Ошибка получения заказов не авторизованным пользователем")
     @Description("Ожидается 401 ответ. В теле ответа должен быть success: false")
     public void getOrdersWithoutAuthorizationTest() {
-        Response getOrdersResponse = given()
-                .when()
-                .get("api/orders");
+        Response getOrdersResponse = orderApi.getOrder();
 
         assertThat(getOrdersResponse.getStatusCode())
                 .as("Код ответа должен быть 401")
